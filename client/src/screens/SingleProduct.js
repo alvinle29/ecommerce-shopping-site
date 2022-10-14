@@ -1,12 +1,26 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+
 import Header from "./../components/Header";
 import Rating from "../components/homeComponents/Rating";
-import { Link } from "react-router-dom";
 import Message from "./../components/LoadingError/Error";
-import products from "../data/Products";
 
-const SingleProduct = ({ match }) => {
-  const product = products.find((p) => p._id === match.params.id);
+const SingleProduct = () => {
+  //console.log(match.params.id)
+  const {id} = useParams()
+  console.log(id)
+  const [product, setProduct] = useState([])
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const {data} = await axios.get(`/api/products/${id}`)
+      console.log(data)
+      setProduct(data)
+    }
+    fetchProduct()
+  }, [id])
+
   return (
     <>
       <Header />
