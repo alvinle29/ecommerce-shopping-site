@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
 import Header from "./../components/Header"
@@ -11,7 +11,10 @@ import { listProductDetails, } from "../redux/actions/productActions"
 
 const SingleProduct = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { id } = useParams()
+
+  const [qty, setQty] = useState(1);
 
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
@@ -19,6 +22,11 @@ const SingleProduct = () => {
   useEffect(() => {
     dispatch(listProductDetails(id))
   }, [dispatch, id])
+
+  const AddToCartHandle = (e) => {
+    e.preventDefault();
+    navigate(`/cart/${id}?qty=${qty}`);
+  }
 
   return (
     <>
@@ -67,7 +75,10 @@ const SingleProduct = () => {
                       <>
                         <div className="flex-box d-flex justify-content-between align-items-center">
                           <h6>Quantity</h6>
-                          <select>
+                          <select
+                            value={qty}
+                            onChange={(e) => setQty(e.target.value)}
+                          >
                             {[...Array(product.countInStock).keys()].map((x) => (
                               <option key={x + 1} value={x + 1}>
                                 {x + 1}
@@ -75,7 +86,7 @@ const SingleProduct = () => {
                             ))}
                           </select>
                         </div>
-                        <button className="round-black-btn">Add To Cart</button>
+                        <button onClick={AddToCartHandle} className="round-black-btn">Add To Cart</button>
                       </>
                     ) : null}
                   </div>
