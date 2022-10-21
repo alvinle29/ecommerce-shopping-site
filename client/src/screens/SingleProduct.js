@@ -14,7 +14,7 @@ const SingleProduct = () => {
   const navigate = useNavigate()
   const { id } = useParams()
 
-  const [qty, setQty] = useState(1);
+  const [qty, setQty] = useState(1)
 
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
@@ -24,8 +24,8 @@ const SingleProduct = () => {
   }, [dispatch, id])
 
   const AddToCartHandle = (e) => {
-    e.preventDefault();
-    navigate(`/cart/${id}?qty=${qty}`);
+    e.preventDefault()
+    navigate(`/cart/${id}?qty=${qty}`)
   }
 
   return (

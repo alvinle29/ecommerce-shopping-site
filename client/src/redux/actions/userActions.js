@@ -1,6 +1,12 @@
-import { USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS } from "../constants/userConstants"
+import axios from "axios"
 
-export const userLogin = (email, password) => async (dispatch) => {
+import { 
+  USER_LOGIN_FAIL, 
+  USER_LOGIN_REQUEST, 
+  USER_LOGIN_SUCCESS 
+} from "../constants/userConstants"
+
+export const LogIn = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST })
     const { data } = await axios.post(

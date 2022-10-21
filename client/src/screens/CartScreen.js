@@ -1,31 +1,33 @@
-import React, { useEffect } from "react";
-import { Link, useParams, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react"
+import { Link, useParams, useLocation } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
 
-import Header from "./../components/Header";
-import { addToCart, removeFromCart } from "./../redux/actions/cartActions";
+import Header from "./../components/Header"
+import { addToCart, removeFromCart } from "./../redux/actions/cartActions"
 
 const CartScreen = () => {
-  window.scrollTo(0, 0);
+  window.scrollTo(0, 0)
+
   const { id } = useParams()
   const location = useLocation()
   const dispatch = useDispatch()
 
   const qty = location.search ? Number(location.search.split = ("=")[1]) : 1
-  const cart = useSelector((state) => state.cart);
-  const { cartItems } = cart;
 
-  const total = cartItems.reduce((a, i) => a + i.qty * i.price, 0).toFixed(2);
+  const cart = useSelector((state) => state.cart)
+  const { cartItems } = cart
+
+  const total = cartItems.reduce((a, i) => a + i.qty * i.price, 0).toFixed(2)
 
   useEffect(() => {
     if (id) {
-      dispatch(addToCart(id, qty));
+      dispatch(addToCart(id, qty))
     }
-  }, [dispatch, id, qty]);
+  }, [dispatch, id, qty])
 
   const removeFromCartHandle = (id) => {
-    dispatch(removeFromCart(id));
-  };
+    dispatch(removeFromCart(id))
+  }
 
   return (
     <>
@@ -114,7 +116,7 @@ const CartScreen = () => {
         }
       </div>
     </>
-  );
-};
+  )
+}
 
-export default CartScreen;
+export default CartScreen
