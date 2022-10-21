@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Link, useParams, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import Header from "./../components/Header";
-import { Link } from "react-router-dom";
+import { addToCart, removefromcart } from "./../redux/actions/cartActions";
 
 const CartScreen = () => {
   window.scrollTo(0, 0);
+  const { id } = useParams()
+  const location = useLocation()
+  const dispatch = useDispatch()
+
+  const qty = location.search ? Number(location.search.split=("=")[1]) : 1
+
+  console.log(id)
+
+  useEffect(() => {
+    if (id) {
+      dispatch(addToCart(id, qty));
+    }
+  }, [dispatch, id, qty]);
+
   return (
     <>
       <Header />
@@ -21,7 +38,7 @@ const CartScreen = () => {
             SHOPPING NOW
           </Link>
         </div> */}
-        <div className=" alert alert-info text-center mt-3">
+        <div className="alert alert-info text-center mt-3">
           Total Cart Products
           <Link className="text-success mx-2" to="/cart">
             (4)
