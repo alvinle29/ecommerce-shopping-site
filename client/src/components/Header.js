@@ -1,14 +1,24 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import React from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
+
+import { LogOut } from "../redux/actions/userActions"
 
 const Header = () => {
+  const dispatch = useDispatch()
+
   const cart = useSelector((state) => state.cart)
-  const {cartItems} = cart
+  const { cartItems } = cart
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
+  const logOutHandler = () => {
+    dispatch(LogOut())
+  }
 
   return (
     <div>
-      {/* Top Header */}
       <div className="Announcement ">
         <div className="container">
           <div className="row">
@@ -36,7 +46,6 @@ const Header = () => {
           </div>
         </div>
       </div>
-      {/* Header */}
       <div className="header">
         <div className="container">
           {/* MOBILE HEADER */}
@@ -49,26 +58,46 @@ const Header = () => {
                   </Link>
                 </div>
                 <div className="col-6 d-flex align-items-center justify-content-end Login-Register">
-                  <div className="btn-group">
-                    <button
-                      type="button"
-                      className="name-button dropdown-toggle"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i class="fas fa-user"></i>
-                    </button>
-                    <div className="dropdown-menu">
-                      <Link className="dropdown-item" to="/profile">
-                        Profile
-                      </Link>
+                  {
+                    userInfo ? (
+                      <div className="btn-group">
+                        <button
+                          type="button"
+                          className="name-button dropdown-toggle"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          <i class="fas fa-user"></i>
+                        </button>
+                        <div className="dropdown-menu">
+                          <Link className="dropdown-item" to="/profile">
+                            Profile
+                          </Link>
 
-                      <Link className="dropdown-item" to="#">
-                        Logout
-                      </Link>
-                    </div>
-                  </div>
+                          <Link
+                            className="dropdown-item" to="#"
+                            onClick={logOutHandler}
+                          >
+                            Logout
+                          </Link>
+                        </div>
+                      </div>
+                    )
+                      :
+                      (
+                        <div className="dropdown-menu">
+                          <Link className="dropdown-item" to="/login">
+                            Login
+                          </Link>
+
+                          <Link className="dropdown-item" to="/register">
+                            Register
+                          </Link>
+                        </div>
+                      )
+                  }
+
                   <Link to="/cart" className="cart-mobile-icon">
                     <i className="fas fa-shopping-bag"></i>
                     <span className="badge">{cartItems.length}</span>
@@ -111,26 +140,41 @@ const Header = () => {
                 </form>
               </div>
               <div className="col-md-3 d-flex align-items-center justify-content-end Login-Register">
-                <div className="btn-group">
-                  <button
-                    type="button"
-                    className="name-button dropdown-toggle"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Hi, Admin Doe
-                  </button>
-                  <div className="dropdown-menu">
-                    <Link className="dropdown-item" to="/profile">
-                      Profile
-                    </Link>
+                {
+                  userInfo ? (
+                    <div className="btn-group">
+                      <button
+                        type="button"
+                        className="name-button dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        Hi, {userInfo.name}
+                      </button>
+                      <div className="dropdown-menu">
+                        <Link className="dropdown-item" to="/profile">
+                          Profile
+                        </Link>
 
-                    <Link className="dropdown-item" to="#">
-                      Logout
-                    </Link>
-                  </div>
-                </div>
+                        <Link
+                          className="dropdown-item" to="#"
+                          onClick={logOutHandler}
+                        >
+                          Logout
+                        </Link>
+                      </div>
+                    </div>
+                  )
+                    :
+                    (
+                      <>
+                        <Link to="/register">Register</Link>
+                        <Link to="/login">Login</Link>
+                      </>
+                    )
+                }
+
 
                 <Link to="/cart">
                   <i className="fas fa-shopping-bag"></i>
@@ -142,7 +186,7 @@ const Header = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
