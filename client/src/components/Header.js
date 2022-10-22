@@ -1,11 +1,14 @@
-import React from "react"
+import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 import { LogOut } from "../redux/actions/userActions"
 
 const Header = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const [keyword, setKeyword] = useState()
 
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
@@ -15,6 +18,15 @@ const Header = () => {
 
   const logOutHandler = () => {
     dispatch(LogOut())
+  }
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    if (keyword?.trim()) {
+      navigate(`/search/${keyword}`)
+    } else {
+      navigate("/")
+    }
   }
 
   return (
@@ -83,9 +95,17 @@ const Header = () => {
                           </Link>
                         </div>
                       </div>
-                    )
-                      :
-                      (
+                    ) : (
+                      <div className="btn-group">
+                        <button
+                          type="button"
+                          className="name-button dropdown-toggle"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          <i class="fas fa-user"></i>
+                        </button>
                         <div className="dropdown-menu">
                           <Link className="dropdown-item" to="/login">
                             Login
@@ -95,7 +115,8 @@ const Header = () => {
                             Register
                           </Link>
                         </div>
-                      )
+                      </div>
+                    )
                   }
 
                   <Link to="/cart" className="cart-mobile-icon">
@@ -104,11 +125,12 @@ const Header = () => {
                   </Link>
                 </div>
                 <div className="col-12 d-flex align-items-center">
-                  <form className="input-group">
+                  <form onSubmit={submitHandler} className="input-group">
                     <input
                       type="search"
                       className="form-control rounded search"
                       placeholder="Search"
+                      onChange={(e) => setKeyword(e.target.value)}
                     />
                     <button type="submit" className="search-button">
                       search
@@ -128,11 +150,12 @@ const Header = () => {
                 </Link>
               </div>
               <div className="col-md-6 col-8 d-flex align-items-center">
-                <form className="input-group">
+                <form onSubmit={submitHandler} className="input-group">
                   <input
                     type="search"
                     className="form-control rounded search"
                     placeholder="Search"
+                    onChange={(e) => setKeyword(e.target.value)}
                   />
                   <button type="submit" className="search-button">
                     search
@@ -174,7 +197,6 @@ const Header = () => {
                       </>
                     )
                 }
-
 
                 <Link to="/cart">
                   <i className="fas fa-shopping-bag"></i>
