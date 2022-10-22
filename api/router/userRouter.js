@@ -1,14 +1,15 @@
 import express from 'express'
 import asyncHandler from 'express-async-handler'
+
 import protect from "../middlewares/auth.js"
 import User from '../models/User.js'
-import generateToken from "../utils/generateTokens.js"
+import generateToken from "../utils/generateToken.js"
 
 const userRouter = express.Router()
 
 userRouter.post("/login", asyncHandler(async (req, res) => {
   const { email, password } = req.body
-  const user = await User.findOne({email})
+  const user = await User.findOne({ email })
 
   if (user && (await user.matchPassword(password))) {
     res.json({
@@ -26,37 +27,35 @@ userRouter.post("/login", asyncHandler(async (req, res) => {
 })
 )
 
-userRouter.post(
-  "/",
-  asyncHandler(async (req, res) => {
-    const { name, email, password } = req.body
+userRouter.post("/", asyncHandler(async (req, res) => {
+  const { name, email, password } = req.body
 
-    const userExists = await User.findOne({ email })
+  const userExists = await User.findOne({ email })
 
-    if (userExists) {
-      res.status(400)
-      throw new Error("User already exists")
-    }
+  if (userExists) {
+    res.status(400)
+    throw new Error("User already exists")
+  }
 
-    const user = await User.create({
-      name,
-      email,
-      password,
-    })
-
-    if (user) {
-      res.status(201).json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        isAdmin: user.isAdmin,
-        token: generateToken(user._id),
-      })
-    } else {
-      res.status(400)
-      throw new Error("Invalid User Data")
-    }
+  const user = await User.create({
+    name,
+    email,
+    password,
   })
+
+  if (user) {
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      token: generateToken(user._id),
+    })
+  } else {
+    res.status(400)
+    throw new Error("Invalid User Data")
+  }
+})
 )
 
 userRouter.get('/profile', protect, asyncHandler(async (req, res) => {
