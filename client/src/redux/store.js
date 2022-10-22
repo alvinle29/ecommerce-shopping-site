@@ -9,7 +9,7 @@ import { userDetailsReducer, userLoginReducer, userRegisterReducer, userUpdateRe
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
-  productCreateReview: productCreateReviewReducer,
+  productReviewCreate: productCreateReviewReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,

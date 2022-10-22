@@ -1,6 +1,8 @@
 import express from 'express'
 import asyncHandler from 'express-async-handler'
+
 import Product from '../models/Product.js'
+import protect from '../middlewares/auth.js'
 
 const productRouter = express.Router()
 
@@ -11,7 +13,7 @@ productRouter.get('/', asyncHandler(async (req, res) => {
 
 productRouter.get("/:id", asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id)
-  
+
   if (product) {
     res.json(product)
   } else {
@@ -54,7 +56,7 @@ productRouter.post("/:id/review", protect, asyncHandler(async (req, res) => {
 })
 )
 
-productRouter.delete("/:id", protect, admin, asyncHandler(async (req, res) => {
+productRouter.delete("/:id", protect, asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id)
 
   if (product) {
@@ -67,7 +69,7 @@ productRouter.delete("/:id", protect, admin, asyncHandler(async (req, res) => {
 })
 )
 
-productRouter.post("/", protect, admin, asyncHandler(async (req, res) => {
+productRouter.post("/", protect, asyncHandler(async (req, res) => {
   const { name, price, description, image, countInStock } = req.body
   const productExist = await Product.findOne({ name })
 
@@ -94,7 +96,7 @@ productRouter.post("/", protect, admin, asyncHandler(async (req, res) => {
 })
 )
 
-productRouter.put("/:id", protect, admin, asyncHandler(async (req, res) => {
+productRouter.put("/:id", protect, asyncHandler(async (req, res) => {
   const { name, price, description, image, countInStock } = req.body
   const product = await Product.findById(req.params.id)
 
