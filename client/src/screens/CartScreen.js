@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { Link, useParams, useLocation } from "react-router-dom"
+import { Link, useParams, useLocation, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
 import Header from "./../components/Header"
@@ -8,9 +8,12 @@ import { addToCart, removeFromCart } from "./../redux/actions/cartActions"
 const CartScreen = () => {
   window.scrollTo(0, 0)
 
-  const { id } = useParams()
+  const navigate = useNavigate()
   const location = useLocation()
   const dispatch = useDispatch()
+  
+  const {id} = useParams()
+  const productId = id
 
   const qty = location.search ? Number(location.search.split = ("=")[1]) : 1
 
@@ -20,10 +23,14 @@ const CartScreen = () => {
   const total = cartItems.reduce((a, i) => a + i.qty * i.price, 0).toFixed(2)
 
   useEffect(() => {
-    if (id) {
-      dispatch(addToCart(id, qty))
+    if (productId) {
+      dispatch(addToCart(productId, qty))
     }
-  }, [dispatch, id, qty])
+  }, [dispatch, productId, qty])
+
+  const checkOutHandler = () => {
+    navigate("/login?redirect=shipping")
+  }
 
   const removeFromCartHandle = (id) => {
     dispatch(removeFromCart(id))
@@ -88,7 +95,7 @@ const CartScreen = () => {
                       </select>
                     </div>
                     <div className="cart-price mt-3 mt-md-0 col-md-2 align-items-sm-end align-items-start  d-flex flex-column justify-content-center col-sm-7">
-                      <h6>SUBTOTAL</h6>
+                      <h6>PRICE</h6>
                       <h4>${item.price}</h4>
                     </div>
                   </div>
@@ -96,7 +103,7 @@ const CartScreen = () => {
 
                 <div className="total">
                   <span className="sub">total:</span>
-                  <span className="total-price">$567</span>
+                  <span className="total-price">{total}</span>
                 </div>
                 <hr />
                 <div className="cart-buttons d-flex align-items-center row">
@@ -104,10 +111,8 @@ const CartScreen = () => {
                     <button>Continue To Shopping</button>
                   </Link>
                   <div className="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
-                    <button>
-                      <Link to="/shipping" className="text-white">
-                        Checkout
-                      </Link>
+                    <button onClick={checkOutHandler}>
+                      Checkout
                     </button>
                   </div>
                 </div>

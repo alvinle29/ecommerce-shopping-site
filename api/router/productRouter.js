@@ -55,7 +55,7 @@ productRouter.post("/:id/review", protect, asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id)
 
   if (product) {
-    const alreadyReviewed = product.reviews.find(
+    const alreadyReviewed = product.reviews?.find(
       (r) => r.user.toString() === req.user._id.toString()
     )
     if (alreadyReviewed) {
@@ -69,11 +69,11 @@ productRouter.post("/:id/review", protect, asyncHandler(async (req, res) => {
       user: req.user._id,
     }
 
-    product.reviews.push(review)
-    product.numReviews = product.reviews.length
+    product.reviews?.push(review)
+    product.numReviews = product.reviews?.length
     product.rating =
-      product.reviews.reduce((acc, item) => item.rating + acc, 0) /
-      product.reviews.length
+      product.reviews?.reduce((acc, item) => item.rating + acc, 0) /
+      product.reviews?.length
 
     await product.save()
     res.status(201).json({ message: "Reviewed Added" })
