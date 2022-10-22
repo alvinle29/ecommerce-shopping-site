@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -9,18 +9,17 @@ import Message from "../LoadingError/Error"
 
 import { listProduct } from '../../redux/actions/productActions'
 
-const ShopSection = () => {
+const ShopSection = (props) => {
+  const { keyword, pagenumber } = props
   const dispatch = useDispatch()
 
   const productList = useSelector((state) => state.productList)
 
-  const { loading, error, products } = productList
+  const { loading, error, products, page, pages } = productList
 
   useEffect(() => {
-    dispatch(listProduct())
-  }, [dispatch])
-
-  console.log(products)
+    dispatch(listProduct(keyword, pagenumber))
+  }, [dispatch, keyword, pagenumber])
 
   return (
     <>
@@ -37,7 +36,7 @@ const ShopSection = () => {
                   <Message variant="alert-danger">{error}</Message>
                 ) : (
                   <>
-                    {products?.map((product) => (
+                    {products.map((product) => (
                       <div
                         className="shop col-lg-4 col-md-6 col-sm-6"
                         key={product._id}
@@ -69,7 +68,11 @@ const ShopSection = () => {
                 )}
 
                 {/* Pagination */}
-                <Pagination />
+                <Pagination
+                  pages={pages}
+                  page={page}
+                  keyword={keyword ? keyword : ""}
+                />
               </div>
             </div>
           </div>
