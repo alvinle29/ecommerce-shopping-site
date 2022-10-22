@@ -13,12 +13,15 @@ import {
 } from "../constants/productConstants"
 import { LogOut } from "./userActions"
 
-export const listProduct = () =>
+export const listProduct =
+  (keyword = " ", pageNumber = " ") =>
   async (dispatch) => {
     try {
-      dispatch({ type: PRODUCT_LIST_REQUEST })
-      const { data } = await axios.get(`/api/products`)
-      dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data })
+      dispatch({ type: PRODUCT_LIST_REQUEST });
+      const { data } = await axios.get(
+        `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+      )
+      dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     } catch (error) {
       dispatch({
         type: PRODUCT_LIST_FAIL,
@@ -26,9 +29,9 @@ export const listProduct = () =>
           error.response && error.response.data.message
             ? error.response.data.message
             : error.message,
-      })
+      });
     }
-  }
+  };
 
 export const listProductDetails = (id) => async (dispatch) => {
   try {
