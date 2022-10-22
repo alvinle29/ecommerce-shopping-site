@@ -1,10 +1,25 @@
-import React from "react";
-import Header from "../components/Header";
-import ProfileTabs from "../components/profileComponents/ProfileTabs";
-import Orders from "./../components/profileComponents/Orders";
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import moment from "moment"
+
+import { getUserDetails } from "../redux/actions/userActions"
+
+import Header from "../components/Header"
+import ProfileTabs from "../components/profileComponents/ProfileTabs"
+import Orders from "./../components/profileComponents/Orders"
 
 const ProfileScreen = () => {
-  window.scrollTo(0, 0);
+  window.scrollTo(0, 0)
+
+  const dispatch = useDispatch()
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
+  useEffect(() => {
+    dispatch(getUserDetails("profile"))
+  }, [dispatch])
+
   return (
     <>
       <Header />
@@ -19,10 +34,10 @@ const ProfileScreen = () => {
                 </div>
                 <div className="author-card-details col-md-7">
                   <h5 className="author-card-name mb-2">
-                    <strong>Admin Doe</strong>
+                    <strong>{userInfo.name}</strong>
                   </h5>
                   <span className="author-card-position">
-                    <>Joined Dec 12 2021</>
+                    <>Joined {moment(userInfo.createdAt).format("MMM Do YYYY")}</>
                   </span>
                 </div>
               </div>
@@ -90,7 +105,7 @@ const ProfileScreen = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ProfileScreen;
+export default ProfileScreen
