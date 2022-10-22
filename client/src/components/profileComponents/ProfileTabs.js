@@ -5,6 +5,7 @@ import { toast } from "react-toastify"
 import Message from "../LoadingError/Error"
 import Toast from "./../LoadingError/Toast"
 import Loading from "./../LoadingError/Loading"
+import { UpdateUser } from "../../redux/actions/userActions"
 
 const ProfileTabs = () => {
 
@@ -24,7 +25,10 @@ const ProfileTabs = () => {
   const dispatch = useDispatch()
 
   const userDetails = useSelector((state) => state.userDetails)
-  const {loading, error, user} = userDetails
+  const { loading, error, user } = userDetails
+
+  const userUpdate = useSelector((state) => state.userUpdate)
+  const { loading: updateLoading } = userUpdate
 
   useEffect(() => {
     if (user) {
@@ -41,7 +45,7 @@ const ProfileTabs = () => {
         toastId.current = toast.error("Password does not match", ToastObjects)
       }
     } else {
-      //dispatch(updateUserProfile({ id: user._id, name, email, password }))
+      dispatch(UpdateUser({ id: user._id, name, email, password }))
       if (!toast.isActive(toastId.current)) {
         toastId.current = toast.success("Profile Updated", ToastObjects)
       }
@@ -53,6 +57,7 @@ const ProfileTabs = () => {
       <Toast />
       {error && <Message variant="alert-danger">{error}</Message>}
       {loading && <Loading />}
+      {updateLoading && <Loading />}
       <form className="row form-container" onSubmit={submitHandler}>
         <div className="col-md-6">
           <div className="form">
