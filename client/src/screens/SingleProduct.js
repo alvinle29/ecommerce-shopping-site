@@ -12,9 +12,14 @@ import { listProductDetails, } from "../redux/actions/productActions"
 const SingleProduct = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { productId } = useParams()
+
   const { id } = useParams()
 
-  const [qty, setQty] = useState(1)
+  console.log(productId)
+  console.log(id)
+
+  const [qty, setQty] = useState(1);
 
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
@@ -24,8 +29,8 @@ const SingleProduct = () => {
   }, [dispatch, id])
 
   const AddToCartHandle = (e) => {
-    e.preventDefault()
-    navigate(`/cart/${id}?qty=${qty}`)
+    e.preventDefault();
+    navigate(`/cart/${id}?qty=${qty}`);
   }
 
   return (

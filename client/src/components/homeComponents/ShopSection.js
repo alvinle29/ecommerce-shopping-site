@@ -20,6 +20,8 @@ const ShopSection = () => {
     dispatch(listProduct())
   }, [dispatch])
 
+  console.log(products)
+
   return (
     <>
       <div className="container">
