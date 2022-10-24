@@ -1,12 +1,12 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 
 import { LogOut } from "../redux/actions/userActions"
 
 const Header = () => {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const history = useHistory()
 
   const [keyword, setKeyword] = useState()
 
@@ -23,9 +23,9 @@ const Header = () => {
   const submitHandler = (e) => {
     e.preventDefault()
     if (keyword?.trim()) {
-      navigate(`/search/${keyword}`)
+      history.push(`/search/${keyword}`)
     } else {
-      navigate("/")
+      history.push("/")
     }
   }
 

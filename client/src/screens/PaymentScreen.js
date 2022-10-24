@@ -5,17 +5,16 @@ import { savePaymentMethod } from "../redux/actions/cartActions"
 
 import Header from "./../components/Header"
 
-const PaymentScreen = () => {
+const PaymentScreen = ({ history }) => {
   window.scrollTo(0, 0)
 
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const cart = useSelector((state) => state.cart)
   const { shippingAddress } = cart
 
   if (!shippingAddress) {
-    navigate("/shipping")
+    history.push("/shipping")
   }
 
   const [paymentMethod, setPaymentMethod] = useState("PayPal")
@@ -23,7 +22,7 @@ const PaymentScreen = () => {
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(savePaymentMethod(paymentMethod))
-    navigate("/placeorder")
+    history.push("/placeorder")
   }
 
   return (

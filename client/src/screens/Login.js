@@ -7,13 +7,12 @@ import Loading from "../components/LoadingError/Loading"
 import Message from '../components/LoadingError/Error'
 import { LogIn } from "../redux/actions/userActions"
 
-const Login = () => {
+const Login = ({ location, history }) => {
   window.scrollTo(0, 0)
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const navigate = useNavigate()
-  const location = useLocation()
   const dispatch = useDispatch()
 
   const redirect = location.search ? location.search.split("=")[1] : "/"
@@ -22,9 +21,9 @@ const Login = () => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect)
+      history.push(redirect)
     }
-  }, [userInfo, navigate, redirect])
+  }, [userInfo, history, redirect])
 
   const submitHandler = (e) => {
     e.preventDefault()
