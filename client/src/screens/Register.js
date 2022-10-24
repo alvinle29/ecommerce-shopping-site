@@ -8,15 +8,15 @@ import Header from "../components/Header"
 import Loading from "../components/LoadingError/Loading"
 import Message from '../components/LoadingError/Error'
 
-const Register = () => {
+const Register = ({ location, history }) => {
   window.scrollTo(0, 0)
 
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const navigate = useNavigate()
-  const location = useLocation()
+  //const navigate = useNavigate()
+  //const location = useLocation()
   const dispatch = useDispatch()
 
   const redirect = location.search ? location.search.split("=")[1] : "/"
@@ -26,9 +26,9 @@ const Register = () => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect)
+      history.push(redirect)
     }
-  }, [userInfo, navigate, redirect])
+  }, [userInfo, history, redirect])
 
   const submitHandler = (e) => {
     e.preventDefault()

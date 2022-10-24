@@ -1,19 +1,15 @@
 import React, { useEffect } from "react"
-import { Link, useParams, useLocation, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
 import Header from "./../components/Header"
 import { addToCart, removeFromCart } from "./../redux/actions/cartActions"
 
-const CartScreen = () => {
+const CartScreen = ({ match, location, history }) => {
   window.scrollTo(0, 0)
 
-  const navigate = useNavigate()
-  const location = useLocation()
   const dispatch = useDispatch()
-  
-  const {id} = useParams()
-  const productId = id
+  const productId = match.params.id
 
   const qty = location.search ? Number(location.search.split = ("=")[1]) : 1
 
@@ -29,7 +25,7 @@ const CartScreen = () => {
   }, [dispatch, productId, qty])
 
   const checkOutHandler = () => {
-    navigate("/login?redirect=shipping")
+    history.push("/login?redirect=shipping")
   }
 
   const removeFromCartHandle = (id) => {

@@ -11,15 +11,17 @@ import Loading from "./../components/LoadingError/Loading"
 import { createProductReview, listProductDetails, } from "../redux/actions/productActions"
 import { PRODUCT_CREATE_REVIEW_RESET } from "../redux/constants/productConstants"
 
-const SingleProduct = () => {
+const SingleProduct = ({ history, match }) => {
   const [qty, setQty] = useState(1)
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState("")
 
-  const {id} = useParams()
-  const productId = id
+  //const {id} = useParams()
+  //const productId = id
+
+  const productId = match.params.id;
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  //const navigate = useNavigate()
 
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
@@ -46,7 +48,7 @@ const SingleProduct = () => {
 
   const AddToCartHandle = (e) => {
     e.preventDefault()
-    navigate(`/cart/${productId}?qty=${qty}`)
+    history.push(`/cart/${productId}?qty=${qty}`)
   }
   
   const submitHandler = (e) => {
