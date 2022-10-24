@@ -1,13 +1,15 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import moment from "moment";
-import axios from "axios";
+import moment from "moment"
+import axios from "axios"
 import { PayPalButton } from "react-paypal-button-v2"
 
 import Header from "./../components/Header"
 import Loading from "./../components/LoadingError/Loading"
 import Message from "./../components/LoadingError/Error"
+import { getOrderDetails, payOrder } from "../redux/actions/orderActions"
+import { ORDER_PAY_RESET } from "../redux/constants/orderConstants"
 
 const OrderScreen = ({ match }) => {
   window.scrollTo(0, 0)
@@ -18,7 +20,48 @@ const OrderScreen = ({ match }) => {
   const orderDetails = useSelector((state) => state.orderDetails)
   const { order, loading, error } = orderDetails
 
-  console.log(orderDetails)
+  const orderPay = useSelector((state) => state.orderPay)
+  const { loading: loadingPay, success: successPay } = orderPay
+
+  const [sdkReady, setSdkReady] = useState(false)
+
+  if (!loading) {
+    const addDecimals = (num) => {
+      return (Math.round(num * 100) / 100).toFixed(2);
+    };
+
+    order.itemsPrice = addDecimals(
+      order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+    );
+  }
+
+  useEffect(() => {
+    const addPayPalScript = async () => {
+      const { data: clientId } = await axios.get("/api/config/paypal")
+      const script = document.createElement("script")
+      script.type = "text/javascript"
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
+      script.async = true
+      script.onload = () => {
+        setSdkReady(true)
+      }
+      document.body.appendChild(script)
+    }
+    if (!order || successPay) {
+      dispatch({ type: ORDER_PAY_RESET })
+      dispatch(getOrderDetails(orderId))
+    } else if (!order.isPaid) {
+      if (!window.paypal) {
+        addPayPalScript()
+      } else {
+        setSdkReady(true)
+      }
+    }
+  }, [dispatch, orderId, successPay, order])
+
+  const successPaymentHandler = (paymentResult) => {
+    dispatch(payOrder(orderId, paymentResult))
+  }
 
   return (
     <>
@@ -177,7 +220,7 @@ const OrderScreen = ({ match }) => {
                     </tr>
                   </tbody>
                 </table>
-                {/* {!order.isPaid && (
+                {!order.isPaid && (
                   <div className="col-12">
                     {loadingPay && <Loading />}
                     {!sdkReady ? (
@@ -189,7 +232,7 @@ const OrderScreen = ({ match }) => {
                       />
                     )}
                   </div>
-                )} */}
+                )}
               </div>
             </div>
           </>
