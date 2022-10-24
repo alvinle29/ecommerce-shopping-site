@@ -45,23 +45,6 @@ textarea:focus {
   padding: 0;
 }
 
-.Announcement {
-  background-color: #1cb803;
-  padding: 10px 0px 6px 0px;
-}
-
-.Announcement .col-md-6 p {
-  color: white;
-  margin-right: 6rem;
-  font-size: 15px;
-}
-
-.Announcement .col-12 a {
-  color: white;
-  margin-right: 2rem;
-  font-size: 15px;
-}
-
 /* Header */
 .header {
   padding: 10px 0px 10px 0px;
@@ -127,7 +110,7 @@ textarea:focus {
 }
 
 .dropdown-menu a:hover {
-  background-color: #1cb803 !important;
+  background-color: #0385b8 !important;
   color: #ffffff !important;
 }
 
@@ -234,7 +217,7 @@ textarea:focus {
 /* NEWSLATTER */
 .subscribe-section {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.226)),
-    url("https://sasshoes-com.s3.us-west-2.amazonaws.com/img/banner-uplift-21.jpg") no-repeat scroll center / cover;
+    url("https://img.freepik.com/free-photo/social-media-audience-crowd-filming-through-smartphones_53876-128944.jpg?w=1800&t=st=1666631400~exp=1666632000~hmac=a151cb6f4c5b7839e6cb665247edd7db9d611eb42257422a1cc2f917fa5d9cdb") no-repeat scroll center / cover;
   padding: 100px 0 100px;
 }
 
@@ -264,18 +247,18 @@ textarea:focus {
   color: #9b9b9b;
   font-size: 16px;
   font-style: normal;
-  height: 51px;
+  height: 52px;
   letter-spacing: 0;
   text-align: center;
   width: 460px;
 }
 
 .form-section input[type="submit"] {
-  background: #1cb803;
+  background: #0385b8;
   border: 0 none;
   border-radius: 25px;
   color: #fff;
-  height: 52px;
+  height: 53px;
   letter-spacing: 0;
   margin-left: -60px;
   padding: 0 58px;
@@ -306,10 +289,10 @@ textarea:focus {
 .info-image {
   width: 50px;
   height: 50px;
-  border: 2px solid #1cb803;
+  border: 2px solid #0385b8;
   border-radius: 100px;
   font-size: 20px;
-  color: #1cb803;
+  color: #0385b8;
 }
 
 .box-info h5 {
@@ -408,7 +391,7 @@ textarea:focus {
 
 .round-black-btn:hover,
 .round-black-btn:focus {
-  background: #1cb803;
+  background: #0385b8;
 }
 
 /* LOGIN */
@@ -445,7 +428,7 @@ textarea:focus {
   margin-top: 20px;
   padding: 20px 0;
   border: 0;
-  background-color: #1cb803;
+  background-color: #0385b8;
   border-radius: 5px;
   text-transform: uppercase;
   color: white;
@@ -545,7 +528,7 @@ textarea:focus {
   margin-top: 20px;
   text-transform: uppercase;
   font-size: 13px;
-  background-color: #1cb803;
+  background-color: #0385b8;
   color: #ffffff;
 }
 
@@ -652,7 +635,7 @@ textarea:focus {
   border: 0px;
   text-transform: uppercase;
   font-size: 13px;
-  background-color: #1cb803;
+  background-color: #0385b8;
   color: #ffffff;
 }
 
@@ -745,7 +728,7 @@ textarea:focus {
   border: 0px;
   text-transform: uppercase;
   font-size: 13px;
-  background-color: #1cb803;
+  background-color: #0385b8;
   color: #ffffff;
 }
 
