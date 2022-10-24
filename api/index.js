@@ -6,6 +6,7 @@ import connectDatabase from './config/mongo.js'
 import mockData from './mockData.js'
 import productRouter from './router/productRouter.js'
 import userRouter from './router/userRouter.js'
+import orderRouter from './router/orderRouter.js'
 
 dotenv.config()
 const app = express()
@@ -16,6 +17,7 @@ app.use(express.json())
 app.use('/api/import', mockData)
 app.use('/api/products', productRouter)
 app.use('/api/users', userRouter)
+app.use('/api/orders', orderRouter)
 
 app.get('/', (req, res) => {
   res.send('API is running')

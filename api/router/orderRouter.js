@@ -1,7 +1,8 @@
 import express from "express"
 import asyncHandler from "express-async-handler"
-import { admin, protect } from "../Middleware/AuthMiddleware.js"
-import Order from "./../Models/OrderModel.js"
+import protect from "../middlewares/auth.js"
+
+import Order from "./../models/Order.js"
 
 const orderRouter = express.Router()
 
@@ -46,7 +47,6 @@ orderRouter.post(
 orderRouter.get(
   "/all",
   protect,
-  admin,
   asyncHandler(async (req, res) => {
     const orders = await Order.find({})
       .sort({ _id: -1 })
