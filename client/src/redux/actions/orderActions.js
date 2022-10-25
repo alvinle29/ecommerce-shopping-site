@@ -18,6 +18,8 @@ import {
 import { CART_CLEAR_ITEMS } from "../constants/cartConstants"
 import { LogOut } from "./userActions"
 
+const link = "https://phoneshopapi.herokuapp.com/" || ""
+
 export const createOrder = (order) => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER_CREATE_REQUEST })
@@ -33,7 +35,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.post(`/api/orders`, order, config)
+    const { data } = await axios.post(`${link}/api/orders`, order, config)
     dispatch({ type: ORDER_CREATE_SUCCESS, payload: data })
     dispatch({ type: CART_CLEAR_ITEMS, payload: data })
 
@@ -67,7 +69,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(`/api/orders/${id}`, config)
+    const { data } = await axios.get(`${link}/api/orders/${id}`, config)
     dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data })
   } catch (error) {
     const message =
@@ -100,7 +102,7 @@ export const payOrder = (orderId, paymentResult) => async (dispatch, getState) =
     }
 
     const { data } = await axios.put(
-      `/api/orders/${orderId}/pay`,
+      `${link}/api/orders/${orderId}/pay`,
       paymentResult,
       config
     )
@@ -134,7 +136,7 @@ export const listMyOrders = () => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(`/api/orders/`, config)
+    const { data } = await axios.get(`${link}/api/orders/`, config)
     dispatch({ type: ORDER_LIST_MY_SUCCESS, payload: data })
   } catch (error) {
     const message =

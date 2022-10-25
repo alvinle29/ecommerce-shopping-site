@@ -17,11 +17,13 @@ import {
   USER_UPDATE_SUCCESS,
 } from "../constants/userConstants"
 
+const link = "https://phoneshopapi.herokuapp.com/" || ""
+
 export const LogIn = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST })
     const { data } = await axios.post(
-      `/api/users/login`,
+      `${link}/api/users/login`,
       { email, password },
       {
         headers: {
@@ -55,7 +57,7 @@ export const RegisterUser = (name, email, password) => async (dispatch) => {
     dispatch({ type: USER_REGISTER_REQUEST })
 
     const { data } = await axios.post(
-      `/api/users`,
+      `${link}/api/users`,
       { name, email, password },
       {
         headers: {
@@ -86,7 +88,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     } = getState()
 
     const { data } = await axios.get(
-      `/api/users/${id}`,
+      `${link}/api/users/${id}`,
       {
         headers: {
           "Authorization": `Bearer ${userInfo.token}`,
@@ -119,7 +121,7 @@ export const UpdateUser = (user) => async (dispatch, getState) => {
     } = getState()
 
     const { data } = await axios.put(
-      `/api/users/profile`,
+      `${link}/api/users/profile`,
       user,
       {
         headers: {

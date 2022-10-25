@@ -1,5 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
+import cors from 'cors'
 
 import connectDatabase from './config/mongo.js'
 
@@ -9,9 +10,15 @@ import userRouter from './router/userRouter.js'
 import orderRouter from './router/orderRouter.js'
 
 dotenv.config()
-const app = express()
 connectDatabase()
+
+const app = express()
 app.use(express.json())
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 
 // API
 app.use('/api/import', mockData)
