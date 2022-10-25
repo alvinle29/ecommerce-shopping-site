@@ -17,7 +17,7 @@ import {
   USER_UPDATE_SUCCESS,
 } from "../constants/userConstants"
 
-const link = "https://phoneshopapi.herokuapp.com/" || ""
+const link = "https://phoneshopapi.herokuapp.com" || ""
 
 export const LogIn = (email, password) => async (dispatch) => {
   try {

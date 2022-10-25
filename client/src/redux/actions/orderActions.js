@@ -18,7 +18,7 @@ import {
 import { CART_CLEAR_ITEMS } from "../constants/cartConstants"
 import { LogOut } from "./userActions"
 
-const link = "https://phoneshopapi.herokuapp.com/" || ""
+const link = "https://phoneshopapi.herokuapp.com" || ""
 
 export const createOrder = (order) => async (dispatch, getState) => {
   try {

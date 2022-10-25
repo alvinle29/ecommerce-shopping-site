@@ -13,7 +13,7 @@ import {
 } from "../constants/productConstants"
 import { LogOut } from "./userActions"
 
-const link = "https://phoneshopapi.herokuapp.com/" || ""
+const link = "https://phoneshopapi.herokuapp.com" || ""
 
 export const listProduct =
   (keyword = " ", pageNumber = " ") =>
