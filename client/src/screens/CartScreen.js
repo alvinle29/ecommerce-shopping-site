@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
 import Header from "./../components/Header"
+
 import { addToCart, removeFromCart } from "./../redux/actions/cartActions"
 
 const CartScreen = ({ match, location, history }) => {
@@ -10,12 +11,13 @@ const CartScreen = ({ match, location, history }) => {
 
   const dispatch = useDispatch()
   const productId = match.params.id
-
   const qty = location.search ? Number(location.search.split("=")[1]) : 1
 
+  //get state of the cart
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
 
+  //total price
   const total = cartItems.reduce((a, i) => a + i.qty * i.price, 0).toFixed(2)
 
   useEffect(() => {

@@ -3,20 +3,22 @@ import { useDispatch, useSelector } from "react-redux"
 import moment from "moment"
 
 import { getUserDetails } from "../redux/actions/userActions"
+import { listMyOrders } from "../redux/actions/orderActions"
 
 import Header from "../components/Header"
 import ProfileTabs from "../components/profileComponents/ProfileTabs"
 import Orders from "./../components/profileComponents/Orders"
-import { listMyOrders } from "../redux/actions/orderActions"
 
 const ProfileScreen = () => {
   window.scrollTo(0, 0)
 
   const dispatch = useDispatch()
 
+  // get user login state
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
+  //get order list state
   const orderListMy = useSelector((state) => state.orderListMy);
   const { loading, error, orders } = orderListMy;
 

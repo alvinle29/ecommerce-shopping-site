@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
+
 import { savePaymentMethod } from "../redux/actions/cartActions"
 
 import Header from "./../components/Header"
@@ -10,6 +11,7 @@ const PaymentScreen = ({ history }) => {
 
   const dispatch = useDispatch()
 
+  //get shipping address state
   const cart = useSelector((state) => state.cart)
   const { shippingAddress } = cart
 

@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import Header from "../components/Header"
 import Loading from "../components/LoadingError/Loading"
 import Message from '../components/LoadingError/Error'
+
 import { LogIn } from "../redux/actions/userActions"
 
 const Login = ({ location, history }) => {
@@ -16,6 +17,7 @@ const Login = ({ location, history }) => {
   const dispatch = useDispatch()
 
   const redirect = location.search ? location.search.split("=")[1] : "/"
+  //get logged in user state
   const userLogin = useSelector((state) => state.userLogin)
   const { error, loading, userInfo } = userLogin
 

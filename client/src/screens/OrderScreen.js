@@ -8,22 +8,25 @@ import { PayPalButton } from "react-paypal-button-v2"
 import Header from "./../components/Header"
 import Loading from "./../components/LoadingError/Loading"
 import Message from "./../components/LoadingError/Error"
+
 import { getOrderDetails, payOrder } from "../redux/actions/orderActions"
 import { ORDER_PAY_RESET } from "../redux/constants/orderConstants"
 
 const OrderScreen = ({ match }) => {
   window.scrollTo(0, 0)
 
-  const orderId = match.params.id
   const dispatch = useDispatch()
 
+  const orderId = match.params.id
+  const [sdkReady, setSdkReady] = useState(false)
+
+  //get order detail state
   const orderDetails = useSelector((state) => state.orderDetails)
   const { order, loading, error } = orderDetails
 
+  //get pay state
   const orderPay = useSelector((state) => state.orderPay)
   const { loading: loadingPay, success: successPay } = orderPay
-
-  const [sdkReady, setSdkReady] = useState(false)
 
   if (!loading) {
     const addDecimals = (num) => {

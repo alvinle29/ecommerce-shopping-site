@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 import { createOrder } from "../redux/actions/orderActions"
 import { ORDER_CREATE_RESET } from "../redux/constants/orderConstants"
@@ -12,8 +12,9 @@ const PlaceOrderScreen = ({ history }) => {
   window.scrollTo(0, 0)
 
   const dispatch = useDispatch()
-
+  //get cart state
   const cart = useSelector((state) => state.cart)
+  //get user login state
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
@@ -33,6 +34,7 @@ const PlaceOrderScreen = ({ history }) => {
     Number(cart.taxPrice)
   ).toFixed(2)
 
+  //get order create state
   const orderCreate = useSelector((state) => state.orderCreate)
   const { order, success, error } = orderCreate
 
