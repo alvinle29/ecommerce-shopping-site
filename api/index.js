@@ -16,16 +16,16 @@ const app = express()
 app.use(express.json())
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  next()
-})
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 
 // API
 app.use('/api/import', mockData)
 app.use('/api/products', productRouter)
 app.use('/api/users', userRouter)
 app.use('/api/orders', orderRouter)
-app.use('/api/config/paypal', (req, res) => {
+app.use('/api/config/paypal', (req,res) => {
   res.send(process.env.PAYPAL_CLIENT_ID)
 })
 
