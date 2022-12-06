@@ -7,7 +7,7 @@ import {
   CART_SAVE_SHIPPING_ADDRESS,
 } from "../constants/cartConstants"
 
-const link = "https://phoneshopapi.herokuapp.com" || ""
+const link = "https://teeny-eggnog-production.up.railway.app/" || ""
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
   const { data } = await axios.get(`${link}/api/products/${id}`)
