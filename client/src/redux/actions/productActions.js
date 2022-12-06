@@ -13,7 +13,7 @@ import {
 } from "../constants/productConstants"
 import { LogOut } from "./userActions"
 
-const link = "https://teeny-eggnog-production.up.railway.app/" || ""
+const link = "https://teeny-eggnog-production.up.railway.app" || ""
 
 export const listProduct =
   (keyword = " ", pageNumber = " ") =>

@@ -17,7 +17,7 @@ import {
   USER_UPDATE_SUCCESS,
 } from "../constants/userConstants"
 
-const link = "https://teeny-eggnog-production.up.railway.app/" || ""
+const link = "https://teeny-eggnog-production.up.railway.app" || ""
 
 export const LogIn = (email, password) => async (dispatch) => {
   try {

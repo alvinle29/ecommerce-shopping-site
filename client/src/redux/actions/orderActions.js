@@ -18,7 +18,7 @@ import {
 import { CART_CLEAR_ITEMS } from "../constants/cartConstants"
 import { LogOut } from "./userActions"
 
-const link = "https://teeny-eggnog-production.up.railway.app/" || ""
+const link = "https://teeny-eggnog-production.up.railway.app" || ""
 
 export const createOrder = (order) => async (dispatch, getState) => {
   try {
