@@ -18,20 +18,20 @@ app.use(express.json())
 app.use(cors())
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', '*')
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+  )
+  next()
+})
 
 // API
 app.use('/api/import', mockData)
 app.use('/api/products', productRouter)
 app.use('/api/users', userRouter)
 app.use('/api/orders', orderRouter)
-app.use('/api/config/paypal', (req,res) => {
+app.use('/api/config/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID)
 })
 

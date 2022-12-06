@@ -28,6 +28,8 @@ const OrderScreen = ({ match }) => {
   const orderPay = useSelector((state) => state.orderPay)
   const { loading: loadingPay, success: successPay } = orderPay
 
+  const link = "https://teeny-eggnog-production.up.railway.app" 
+
   if (!loading) {
     const addDecimals = (num) => {
       return (Math.round(num * 100) / 100).toFixed(2);
@@ -40,7 +42,7 @@ const OrderScreen = ({ match }) => {
 
   useEffect(() => {
     const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get("/api/config/paypal")
+      const { data: clientId } = await axios.get(`${link}/api/config/paypal`)
       const script = document.createElement("script")
       script.type = "text/javascript"
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
